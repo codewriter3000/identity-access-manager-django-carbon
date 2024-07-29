@@ -1,0 +1,27 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+@use "@carbon/react/scss/breakpoint" as *;
+@use "@carbon/react/scss/theme" as *;
+@use '@carbon/colors';
+
+@use "./overrides.scss";
+
+html {
+  background-color: $layer-01;
+}
+
+.landing-page__illo {
+  max-width: 100%;
+  float: inline-end;
+  height: auto;
+}
+
+.landing-page__banner {
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-07 * 4;
+  padding-left: $spacing-06;
+}
+
+.metric {
+  color: colors.$blue-40;
+}
