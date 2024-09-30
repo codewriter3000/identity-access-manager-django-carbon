@@ -18,6 +18,7 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
 
     useEffect(() => {
         setIsAdmin(user?.['is_admin'])
@@ -25,6 +26,7 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
         setDeleteStage('Delete Account')
         setFirstName(user?.['first_name'])
         setLastName(user?.['last_name'])
+        setEmail(user?.['email'])
     }, [user])
 
     return (
@@ -39,6 +41,7 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
                        username: user['username'],
                        first_name: firstName,
                        last_name: lastName,
+                       email: email,
                        is_admin: isAdmin,
                        is_enabled: isEnabled
                    }
@@ -58,6 +61,12 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
                     particular user. You can change information about a user, change
                     their admin status, or even disable, enable, or delete their account.
                 </p>
+                <TextInput data-modal-primary-focus id="email-config"
+                           labelText="Email"
+                           defaultValue={user?.['email']}
+                           value={email}
+                           onChange={evt => setEmail(evt.target.value)}
+                />
                 <TextInput data-modal-primary-focus id="first-name-config"
                            labelText="First name"
                            defaultValue={user?.['first_name']}

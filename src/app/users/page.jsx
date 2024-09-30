@@ -16,7 +16,7 @@ import {
     Tag
 } from "@carbon/react";
 import { useCallback, useEffect, useState } from "react";
-import { getUsers } from "@/../lib";
+import { getUsers, getUserByID } from "@/../lib";
 import { NewUserModal, ConfigureUserModal } from "@/components/modals";
 
 const UsersPage = () => {
@@ -41,7 +41,6 @@ const UsersPage = () => {
         setRealData(users);
       })
       .catch((err) => {
-        console.log(err);
         setShouldThrowError(true);
       });
   }, [newOpen, configureOpen]);
@@ -91,7 +90,6 @@ const UsersPage = () => {
 
   const ErrorBoundary = ({ trigger, fallback, children }) => {
     if (trigger) {
-      console.log("fallback");
       return fallback;
     } else {
       return children;
@@ -107,13 +105,13 @@ const UsersPage = () => {
       <ConfigureUserModal
         open={configureOpen}
         setOpen={setConfigureOpen}
-        user={getUserFromUsername(user)}
+        user={user}
       />
       <Grid>
-        <Section level={1}>
-          <Heading>Users</Heading>
-        </Section>
-        <Column className="mt-4" lg={16} md={8} sm={4}>
+        <Column className="" lg={16} md={8} sm={4}>
+          <Section level={1}>
+            <Heading className='mb-4' style={{'fontSize': 28}}>Users</Heading>
+          </Section>
           <Button onClick={() => setNewOpen(!newOpen)}>New User</Button>
           <Search
             size="lg"
@@ -172,11 +170,12 @@ const UsersPage = () => {
                       </TableCell>
                       <TableCell>
                         <Button
-                          id={user["username"]}
+                          id={user["id"]}
                           kind="ghost"
                           onClick={(event) => {
                             event.preventDefault();
-                            setUser(event.target["id"]);
+                            setUser(
+                              realData.filter((usr) => usr["id"].toString() === event.target["id"])[0]);
                             setConfigureOpen(true);
                           }}
                         >
