@@ -15,10 +15,16 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
     const [isAdmin, setIsAdmin] = useState(false)
     const [isEnabled, setIsEnabled] = useState(false)
     const [deleteStage, setDeleteStage] = useState('Delete Account')
+    const [isDeleteAccordionOpened, setIsDeleteAccordionOpened] = useState(false)
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
+
+    const handleClose = () => {
+        setOpen(false)
+        setIsDeleteAccordionOpened(false)
+    }
 
     useEffect(() => {
         setIsAdmin(user?.['is_admin'])
@@ -31,7 +37,7 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
 
     return (
         <Modal open={open}
-               onRequestClose={() => setOpen(false)}
+               onRequestClose={() => handleClose()}
                modalHeading={`Configure ${user?.['username']}`}
                modalLabel='User configuration'
                secondaryButtonText='Cancel'
@@ -100,7 +106,7 @@ const ConfigureUserModal = ({ user, open, setOpen }) => {
                     </div>
                 </div>
                 <Accordion>
-                    <AccordionItem title='Delete Account'>
+                    <AccordionItem open={isDeleteAccordionOpened} title='Delete Account'>
                         <div className='flex'>
                             <div>
                                 <Button kind='danger'
